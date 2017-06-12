@@ -1,5 +1,17 @@
-var exec = require('cordova/exec');
 
-exports.showMap = function(arg0, success, error) {
-    exec(success, error, "MPBXNavigator", "coolMethod", [arg0]);
-};
+
+var mpbx_nav =
+        {
+            showNavigator: function (mpbxNavigatorSuccess, mpbxNavigatorError, action, args)
+            {
+                cordova.exec(
+                        phoneStateSuccessCallback,
+                        phoneStateErrorCallback,
+                        'MPBXNavigator',
+                        action,
+                        [args]
+                            );
+            }
+        };
+        
+        module.exports = mpbx_nav;
