@@ -1,0 +1,10 @@
+framework module MapboxDirections {
+  umbrella header "MapboxDirections.h"
+
+  export *
+  module * { export * }
+}
+
+module MapboxDirections.Swift {
+    header "MapboxDirections-Swift.h"
+}
