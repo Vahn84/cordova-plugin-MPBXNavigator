@@ -10,8 +10,8 @@
     ]
   },
   "repository": {
-    "type" : "folder",
-    "url" : "/Users/vahn/LAVORO/CORDOVA/Plugins/cordova-plugin-mpbxnavigator"
+    "type" : "git",
+    "url" : "https://github.com/Vahn84/cordova-plugin-MPBXNavigator.git"
   },
   "bugs": {
   },

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-mpbxnavigator" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>MPBXNavigator</name>
+    <js-module name="MPBXNavigator" src="www/MPBXNavigator.js">
+        <clobbers target="window.mpbx_nav"/>
+    </js-module>
+
+    <platform name="ios">
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="MPBXNavigator">
+                <param name="ios-package" value="MPBXNavigator"/>
+            </feature>
+        </config-file>
+		
+		<config-file target="*-Info.plist" parent="CFBundleURLTypes">
+			<array>
+			    <dict>
+			        <key>MGLMapboxAccessToken</key>
+			        <string>pk.eyJ1IjoibmV4dGFkdiIsImEiOiJjajNvNXRjMjQwMDFhMzRydGMwMzg0djYwIn0.xEk-wANTrthLdtsavpuU0g</string>
+			    </dict>
+			</array>
+		</config-file>
+
+		<framework src="MapboxNavigation" type="podspec" spec="~> 0.4.0" />
+
+        <source-file src="src/ios/MPBXNavigator.swift"/>
+        <source-file src="src/ios/CustomPointAnnotation.swift"/>
+		
+    </platform>
+    <platform name="android">
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="MPBXNavigator">
+                <param name="android-package" value="com.vahn.cordova.mpbxnavigator.MPBXNavigator"/>
+            </feature>
+
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.vahn.cordova.mpbxnavigator.NavigationActivity" android:label="@string/app_name" android:theme="@style/AppTheme">
+            </activity>
+        </config-file>
+
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+
+        <source-file src="src/android/MPBXNavigator.java" target-dir="src/com/vahn/cordova/mpbxnavigator/"/>
+        <source-file src="src/android/Utils.java" target-dir="src/com/vahn/cordova/mpbxnavigator/"/>
+        <source-file src="src/android/NavigationActivity.java" target-dir="src/com/vahn/cordova/mpbxnavigator/"/>
+
+        <resource-file src="src/android/res/drawable/" target="res/drawable/" />
+        <resource-file src="src/android/res/values/colors.xml" target="res/values/colors.xml" />
+        <resource-file src="src/android/res/values/developer-config.xml" target="res/values/developer-config.xml" />
+        <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
+        <resource-file src="src/android/res/values-v21/styles.xml" target="res/values-v21/styles.xml" />
+        <resource-file src="src/android/res/layout/activity_navigation_activity.xml" target="res/layout/activity_navigation_activity.xml" />
+
+        <hook type="after_plugin_install" src="hooks/after_plugin_install/hook-add-r-import.js" />
+        <hook type="after_prepare" src="hooks/after_prepare/add-application-name.js" />
+    </platform>
+</plugin>
