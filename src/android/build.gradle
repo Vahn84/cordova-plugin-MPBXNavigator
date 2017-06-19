@@ -1,0 +1,34 @@
+dependencies {
+    // Mapbox Navigation SDK
+    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.3.1'
+
+    // Support libraries
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Mapbox Maps SDK
+    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.0-beta.2@aar') {
+        transitive = true
+        exclude module: 'lost'
+        exclude module: 'mapbox-java-geojson'
+        exclude module: 'mapbox-android-telemetry'
+    }
+
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    // Butter Knife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // Leak Canary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    // Testing
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}

@@ -1,0 +1,34 @@
+{
+  "name": "cordova-plugin-mpbxnavigator",
+  "version": "0.0.1",
+  "description": "Cordova Mapbox Navigator Plugin",
+  "cordova": {
+    "id": "cordova-plugin-mpbxnavigator",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type" : "folder",
+    "url" : "/Users/vahn/LAVORO/CORDOVA/Plugins/cordova-plugin-mpbxnavigator"
+  },
+  "bugs": {
+  },
+  "keywords": [
+    "cordova"
+  ],
+  "scripts": {
+  },
+  "author": "Vahn",
+  "license": "Apache-2.0",
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "devDependencies": {
+  }
+}

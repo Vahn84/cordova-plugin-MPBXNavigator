@@ -46,7 +46,7 @@ FOUNDATION_EXPORT NSString *const AWSSignatureV4Terminator;
                                                                      endpoint:(AWSEndpoint *)endpoint
                                                                       keyPath:(NSString *)keyPath
                                                                requestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeaders
-                                                            requestParameters:(NSDictionary<NSString *, id> *)requestParameters
+                                                            requestParameters:(NSDictionary<NSString *, NSString *> *)requestParameters
                                                                      signBody:(BOOL)signBody;
 
 + (NSString *)getCanonicalizedRequest:(NSString *)method

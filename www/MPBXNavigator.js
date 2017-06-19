@@ -8,7 +8,7 @@ var mpbx_nav =
                         mpbxNavigatorSuccess,
                         mpbxNavigatorError,
                         'MPBXNavigator',
-                        action,
+                        'showNavigator',
                         [args]
                             );
             }

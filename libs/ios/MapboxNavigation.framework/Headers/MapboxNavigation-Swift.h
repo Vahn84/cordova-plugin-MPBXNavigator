@@ -342,12 +342,12 @@ SWIFT_CLASS_NAMED("NavigationViewController")
 @end
 
 
-@interface MBNavigationViewController (SWIFT_EXTENSION(MapboxNavigation)) <PulleyDelegate>
-- (void)drawerPositionDidChangeWithDrawer:(PulleyViewController * _Nonnull)drawer;
+@interface MBNavigationViewController (SWIFT_EXTENSION(MapboxNavigation))
 @end
 
 
-@interface MBNavigationViewController (SWIFT_EXTENSION(MapboxNavigation))
+@interface MBNavigationViewController (SWIFT_EXTENSION(MapboxNavigation)) <PulleyDelegate>
+- (void)drawerPositionDidChangeWithDrawer:(PulleyViewController * _Nonnull)drawer;
 @end
 
 

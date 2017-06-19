@@ -21,8 +21,6 @@ FOUNDATION_EXPORT double AWSCoreVersionNumber;
 //! Project version string for AWSCore.
 FOUNDATION_EXPORT const unsigned char AWSCoreVersionString[];
 
-#import "AWSCocoaLumberjack.h"
-
 #import "AWSServiceEnum.h"
 #import "AWSService.h"
 #import "AWSCredentialsProvider.h"
@@ -48,7 +46,6 @@ FOUNDATION_EXPORT const unsigned char AWSCoreVersionString[];
 #import "AWSKSReachability.h"
 #import "AWSTMCache.h"
 #import "AWSUICKeyChainStore.h"
-
 
 #import "AWSSTS.h"
 #import "AWSCognitoIdentity.h"
