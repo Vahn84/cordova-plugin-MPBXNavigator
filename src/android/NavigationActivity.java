@@ -1,6 +1,9 @@
 package com.vahn.cordova.mpbxnavigator;
 
+import com.ionicframework.navigator877340.R;
+
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -114,10 +117,25 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
     private boolean justStarted = true;
     private boolean apiMoreThanLollipop = false;
 
+    private double originLat = 0;
+    private double originLng = 0;
+    private double destinationLat = 0;
+    private double destinationLng = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_activity);
+
+        Intent intent = getIntent();
+        try {
+            originLat = intent.getDoubleExtra("originLat", -1);
+            originLng = intent.getDoubleExtra("originLng", -1);
+            destinationLat = intent.getDoubleExtra("destinationLat", -1);
+            destinationLng = intent.getDoubleExtra("destinationLng", -1);
+        } catch (Exception e){
+
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             apiMoreThanLollipop = true;
@@ -187,8 +205,8 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
         mapboxMap.getMyLocationViewSettings().setTilt(45);
 
 
-        destination = Position.fromCoordinates(destLongitude, destLatitude);
-        LatLng destLatLng = new LatLng(destLatitude, destLongitude);
+        destination = Position.fromCoordinates(destinationLng, destinationLat);
+        LatLng destLatLng = new LatLng(destinationLat, destinationLng);
 
 
         destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(destLatLng));
@@ -225,22 +243,29 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
             locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
             locationEngine.setFastestInterval(1000);
             locationEngine.activate();
-            locationEngine.addLocationEngineListener(new LocationEngineListener() {
-                @Override
-                public void onConnected() {
+            if(originLat > -1) {
+                Log.d("ORIGIN: LATITUDE ",String.valueOf(originLat));
+                Log.d("ORIGIN: LONGITUDE ",String.valueOf(originLng));
+                Log.d("DESTINATION: LATITUDE ",String.valueOf(destinationLat));
+                Log.d("DESTINATION: LONGITUDE ",String.valueOf(destinationLng));
+                calculateRoute();
+            } else {
+                locationEngine.addLocationEngineListener(new LocationEngineListener() {
+                    @Override
+                    public void onConnected() {
 
-                }
+                    }
 
-                @Override
-                public void onLocationChanged(Location location) {
-                    Log.d("NAV", "location arrived "+location.toString());
-                    userLocation = location;
-                    locationEngine.removeLocationEngineListener(this);
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        Log.d("NAV", "location arrived " + location.toString());
+                        userLocation = location;
+                        locationEngine.removeLocationEngineListener(this);
 
-                    calculateRoute();
-                }
-            });
-
+                        calculateRoute();
+                    }
+                });
+            }
 
         }
 
@@ -286,14 +311,16 @@ public class NavigationActivity extends AppCompatActivity implements OnMapReadyC
 
     private void calculateRoute() {
 
-        Log.d("NAV", userLocation.toString());
+
 
         if (userLocation == null) {
-            Location userLocation = mapboxMap.getMyLocation();
-            Timber.d("calculateRoute: User location is null, therefore, origin can't be set.");
-            return;
+            userLocation = new Location("dummyprovider");
+            userLocation.setLatitude(originLat);
+            userLocation.setLongitude(originLng);
+            Log.d("CALC ROUTE:", "SETTING USER LOCATION");
         }
 
+        Log.d("CALC ROUTE: ", "ORIGIN "+userLocation.toString());
 
 
         Log.d("NAV", "calculatin route");

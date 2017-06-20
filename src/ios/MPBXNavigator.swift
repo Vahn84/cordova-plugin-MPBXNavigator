@@ -20,22 +20,49 @@ NavigationViewControllerDelegate, CLLocationManagerDelegate {
     var origin: CLLocationCoordinate2D?
     var locationManager: CLLocationManager?
     var mapView: NavigationMapView!
+    var originJSON:[String:Any] = ["": ""]
+    var destinationJSON:[String: Any] = ["": ""]
+    var originLat:Double = -1
+    var originLng:Double = -1
+    var destinationLat:Double = -1
+    var destinationLng:Double = -1
 
     func showNavigator(_ command:CDVInvokedUrlCommand) {
 
-        print("vado")
+        let json = command.arguments[0] as? [String: Any]
+        if(json != nil) {
+            originJSON = (json?["origin"] as? [String:Any])!
+            destinationJSON = (json?["destination"]  as? [String:Any])!
+            originLat = originJSON["latitude"] as! Double
+            originLng = originJSON["longitude"] as! Double
+            destinationLat = destinationJSON["latitude"] as! Double
+            destinationLng = destinationJSON["longitude"] as! Double
+        }
+
+        if(destinationLat > -1) {
+            destination = CLLocationCoordinate2D(latitude: destinationLat, longitude: destinationLng)
+        }
+
+        if(originLat > -1) {
+            origin = CLLocationCoordinate2D(latitude: originLat, longitude: originLng)
+            getRoute();
+        } else {
+            locationManager = CLLocationManager()
+            locationManager?.delegate = self
+            locationManager?.requestWhenInUseAuthorization();
+            locationManager?.startUpdatingLocation()
+        }
+
+
+        print("NAVIGATION POINT:", originLat)
         mapView = NavigationMapView();
         mapView.delegate = self
         mapView.navigationMapDelegate = self
         mapView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
         mapView.userTrackingMode = .follow
-        destination = CLLocationCoordinate2D(latitude: 41.841332, longitude: 12.511439999999993)
 
 
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization();
-        locationManager?.startUpdatingLocation()
+
 
     }
 
